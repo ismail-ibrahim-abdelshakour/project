@@ -1,0 +1,63 @@
+	
+body{
+			margin:auto;
+			width:1000px;
+            background-image: url("img/susan-holt-simpson-H7SCRwU1aiM-unsplash.jpg");
+		    background-size:cover;
+		
+		}
+		
+#a{
+			width: 500px;
+			margin-left:300px;
+			color:white;
+			font-weight:bold;
+			margin-top:100px;
+			margin-bottom:100px;
+		}
+
+.bod{
+			width:100%;
+			margin:auto;
+		}
+		#b{
+			
+			margin:auto;
+			margin-bottom:100px;
+		}
+		
+		img{
+			margin-top:20px;
+			margin-left:300px;
+		}
+
+		input{
+		margin-left:300px;
+		width:400px;
+		margin-top:10px;
+		}
+		
+		#button_gen{
+			width:400px;
+			margin-left:30%;
+			margin-bottom:20px;			
+		}
+		
+h2{
+margin-left:42%;
+		}
+		
+button{
+width:100px;
+margin-left:12%;
+margin-bottom:20px;
+padding:20px;
+
+		}
+
+tr td{
+	border: 2px solid red;
+	background-color: beige;
+}
+		
+		

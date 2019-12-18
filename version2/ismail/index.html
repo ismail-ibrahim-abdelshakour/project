@@ -1,0 +1,208 @@
+<html>
+<head>
+<title> Alphabet </title>	
+<link rel="stylesheet" href="proj.css">
+<script src="jquery3.2.1.min.js"></script>
+</head>
+	
+<body>
+
+	<div class="bod">	
+	<div id="a">
+    <h1> Learn The English Letters</h1>	
+	</div>	
+	<div id="b">			
+	<input type="number" id="inp">
+	<br>
+	<img id='images'>
+	<br><br>
+	<button id="gener">Generate</button><br>
+	<div id='gb'>
+	</div>
+				
+	</div>
+	</div>
+			<br /><br />
+		<div >
+			<form id="show">
+				<input type="submit" id="subshow" value="Show">
+			</form>
+			<div id="showdata">
+				
+			</div>
+			
+			
+
+
+</body>
+	
+	
+<script>
+
+
+var num_cl_but = document.getElementById("gb");
+var generate=document.getElementById("gener"); //get generate button
+var count=localStorage.getItem('count');
+
+
+
+window.addEventListener("load",function(e){
+	var obj1=new tempLocalStorage(e.target,e.type,new Date());
+	if(localStorage.getItem("load")){
+		var jsonload=JSON.parse(localStorage.getItem("load"));
+		jsonload.push(obj1.obj);
+	   	localStorage.setItem("load",JSON.stringify(jsonload));
+	   }
+	   else{
+		   var a=[];
+		   a.push(obj1.obj);
+		   var q=localStorage.setItem("load",JSON.stringify(a));
+	   }
+});
+
+
+window.addEventListener('unload',function(e){
+	var obj1=new tempLocalStorage(e.target,e.type,new Date());
+	if(localStorage.getItem("unload")){
+		var jsonload=JSON.parse(localStorage.getItem("load"));
+		jsonload.push(obj1.obj);
+	   	localStorage.setItem("unload",JSON.stringify(jsonload));
+	   }
+	   else{
+		   var a=[];
+		   a.push(obj1.obj);
+		   var q=localStorage.setItem("unload",JSON.stringify(a));
+	   }
+});
+		
+	    var mImg=document.getElementById('mImg');
+		var charList=[65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90];
+	
+		var b=document.getElementById('gb');
+		
+		
+		
+		//Get Referance Button Generate
+var butt=document.getElementById('button_gen');
+generate.addEventListener("click",function(e){
+images.src="";
+while (num_cl_but.hasChildNodes()) {  
+					num_cl_but.removeChild(num_cl_but.firstChild);
+				}
+				
+			var obj1=new tempLocalStorage(e.target,e.type,new Date());
+	if(localStorage.getItem("generate")){
+		var jsonload=JSON.parse(localStorage.getItem("generate"));
+		jsonload.push(obj1.obj);
+	   	localStorage.setItem("generate",JSON.stringify(jsonload));
+	   }
+	   else{
+		   var a=[];
+		   a.push(obj1.obj);
+		   var q=localStorage.setItem("generate",JSON.stringify(a));
+	   }
+            var mNumGenerated = document.getElementById("inp").value;
+			
+			if(mNumGenerated>26 || mNumGenerated<1){
+				alert("enter correct num");
+				
+				}
+				else{
+			var arrChar_selected=[];
+			
+			var rand_list=[];
+
+			for(var i=0;i<mNumGenerated;i++){
+				var rand=getRndInteger(0,26);
+					
+					while(rand_list.includes(rand)){
+						rand=getRndInteger(0,26);
+						}
+						arrChar_selected[i]=charList[rand];
+						rand_list[i]=rand;
+					}
+			
+			
+			for(var x=0;x<arrChar_selected.length;x++){
+				var mNode=document.createElement('button');
+				var mTextNode=document.createTextNode(String.fromCharCode(arrChar_selected[x]));
+				mNode.appendChild(mTextNode);
+				b.appendChild(mNode);
+				
+
+				
+			}
+			
+		
+        var mButtons=document.getElementsByTagName('button');
+		
+      	for(var i=0 ;i<mButtons.length;i++){
+					mButtons[i].addEventListener('click',function(e){
+					
+					var alphabet=e.target.textContent;
+
+	    if(alphabet!='Generate'){
+					images.src='img/'+e.target.textContent+'.jpg';
+					e.target.style.border="1px solid red";
+					var obj1=new tempLocalStorage(e.target,e.type,new Date());
+	if(localStorage.getItem("charclick")){
+		var jsonload=JSON.parse(localStorage.getItem("generate"));
+		jsonload.push(obj1.obj);
+	   	localStorage.setItem("charclick",JSON.stringify(jsonload));
+	   }
+	   else{
+		   var a=[];
+		   a.push(obj1.obj);
+		   var q=localStorage.setItem("charclick",JSON.stringify(a));
+	   }
+					
+
+				}});
+
+}
+}
+}
+);
+		
+function getRndInteger(min, max) {
+return Math.floor(Math.random() * (max - min) ) + min;
+}
+
+function tempLocalStorage(target,type,date){
+this.target=target;
+this.type=type;
+this.date=date;
+ this.obj={"target":this.target,"time":this.date,"type":this.type};
+
+}
+setInterval(function(){
+for(var i=0; i<localStorage.length; i++){
+					$.ajax({
+						"type":"POST",
+						"url":"protest.php",
+						"data":{"myjaxa":[localStorage[localStorage.key(i)],localStorage.key(i)]},
+						"success":function(res){
+							console.log(res);
+						}
+					});
+				}localStorage.clear(); },5000);
+	
+	var showdata=document.getElementById("showdata");
+	
+	$("#show").on("submit",function(e){
+	e.preventDefault()
+	$.ajax({
+		"type":"GET",
+		"url":"showdata.php",
+		"data":{"showdata":""},
+		"success":function(res){
+			showdata.innerHTML="";
+			showdata.innerHTML=res;
+		}
+	});
+});
+		
+	</script>
+
+
+</html>
